@@ -2,11 +2,18 @@ from setuptools import setup
 from codecs import open
 from os import path
 
-here = path.abspath(path.dirname(__file__))
+long_description='''
+tilepie 
+=======
 
-# Get the long description from the README file
-with open(path.join(here, 'README.md'), encoding='utf-8') as f:
-  long_description = f.read()
+Simple ``.mbtiles`` processor for python. Built with the `QA Tiles <https://osmlab.github.io/osm-qa-tiles/>`_ in mind.
+Based on the map/reduce/end structure in `@mapbox/tilereduce <https://github.com/mapbox/tile-reduce>`_.
+
+Previous work (as far as I know)
+--------------------------------
+- `mapbox/tilereduce <https://github.com/mapbox/tile-reduce>`_
+- `jwass/tile-reduce-py: <https://github.com/jwass/tile-reduce-py/>`_
+'''
 
 setup(name='tilepie',
       version='0.1.3',
