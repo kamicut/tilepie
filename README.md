@@ -83,11 +83,12 @@ tilereduce(
 )
 ```
 
-Previous work (as far as I know)
+Acknowledgements & pevious work
 --------------------------------
 - [mapbox/tilereduce](https://github.com/mapbox/tile-reduce)
 - [jwass/tile-reduce-py](https://github.com/jwass/tile-reduce-py/)
+- [makinacorpus/landez](https://github.com/makinacorpus/landez/)
 
 License
 ----------
-[MIT © Marc Farra](LICENSE.md)
+[MIT © Marc Farra](LICENSE.md) unless otherwise specified

@@ -1,13 +1,14 @@
-import landez
 import logging
 import gzip
-import StringIO
+from io import BytesIO
 import multiprocessing as mp
 
+from tilepie.reader import MBTilesReader, ExtractionError
+
 def uncompress(compressed):
-  fileobj = StringIO.StringIO(compressed)
+  fileobj = BytesIO(compressed)
   gz = gzip.GzipFile(fileobj=fileobj, mode='r')
-  uncompressed = gz.read(fileobj)
+  uncompressed = gz.read()
   gz.close()
 
   return uncompressed
@@ -15,15 +16,15 @@ def uncompress(compressed):
 def tilereduce (options, mapper, callback, done):
   pool = mp.Pool()
 
-  tm = landez.TilesManager(mbtiles_file=options.get('source'))
+  tm = MBTilesReader(options.get('source'))
   zoom = options.get('zoom')
   tiles = tm.tileslist(bbox=options.get('bbox'), zoomlevels=[zoom])
 
   for tile in tiles:
     try: 
-      tilecontent = uncompress(tm.tile(tile))
+      tilecontent = uncompress(tm.tile(tile[0], tile[1], tile[2]))
       pool.apply_async(mapper, args=(tile[1], tile[2], tile[0], tilecontent), callback = callback)
-    except landez.ExtractionError:
+    except ExtractionError:
       pass
   pool.close()
   pool.join()

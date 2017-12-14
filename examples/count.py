@@ -24,7 +24,7 @@ if __name__ == '__main__':
   
   def done():
     global total_count
-    print total_count
+    print(total_count)
   
   # Call tilereduce
   tilereduce(
