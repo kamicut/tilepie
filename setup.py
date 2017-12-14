@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='tilepie',
-      version='0.1',
+      version='0.1.1',
       description='multiproc mbtile processing',
       url='',
       author='Marc Farra',
