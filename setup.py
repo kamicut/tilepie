@@ -16,14 +16,14 @@ Previous work (as far as I know)
 '''
 
 setup(name='tilepie',
-      version='0.1.3',
+      version='0.1.4',
       description='multiproc mbtile processing',
       long_description=long_description,
       url='https://github.com/kamicut/tilepie',
       author='Marc Farra',
       author_email='marcfarra@gmail.com',
       license='MIT',
-      download_url='https://github.com/kamicut/tilepie/archive/0.1.3.tar.gz',
+      download_url='https://github.com/kamicut/tilepie/archive/0.1.4.tar.gz',
       packages=['tilepie'],
       install_requires = [
         'landez'
