@@ -18,11 +18,11 @@ if __name__ == '__main__':
 
     return count
   
-  def callback(count):
+  def onTileDone(count):
     global total_count
     total_count += count
   
-  def done():
+  def onEnd():
     global total_count
     print(total_count)
   
@@ -34,6 +34,6 @@ if __name__ == '__main__':
       'bbox': (35.1260526873, 33.0890400254, 36.6117501157, 34.6449140488)
     },
     mapper,
-    callback,
-    done
+    onTileDone,
+    onEnd
   )

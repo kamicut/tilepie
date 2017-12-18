@@ -60,12 +60,12 @@ def mapper(x, y, z, data):
   return count
 
 ## Define a callback when each tile finishes
-def callback(count):
+def onTileDone(count):
   global total_count
   total_count += count
   
 ## Define a function that runs at the end of all jobs
-def done():
+def onEnd():
   global total_count
   print total_count
   
@@ -78,8 +78,8 @@ tilereduce(
     'bbox': (35.1260526873, 33.0890400254, 36.6117501157, 34.6449140488)
   },
   mapper,
-  callback,
-  done
+  onTileDone,
+  onEnd
 )
 ```
 
