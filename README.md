@@ -3,7 +3,7 @@ tilepie 🍕
 
 Simple `.mbtiles` processor for python. Built with the [QA Tiles](https://osmlab.github.io/osm-qa-tiles/) in mind.
 
-Based on the map/reduce/end structure in [@mapbox/tilereduce](https://github.com/mapbox/tile-reduce). Tiles are read from the `mbtiles` container and passed to a worker pool as asynchronous jobs that can run concurrently. 
+Based on the map/reduce/end structure in [@mapbox/tilereduce](https://github.com/mapbox/tile-reduce). Tiles are read from the `mbtiles` container and passed to a worker pool as asynchronous jobs that can run concurrently.
 
 Docs
 ----
@@ -15,6 +15,7 @@ A dictionary with the following keys:
 - source: a path to an mbtiles
 - bbox: a bounding box limiting the tiles to read
 - zoom: the zoom level to read from
+- args: an optional dictionary which is passed to each worker
 
 **mapfunc: (x, y, z, data) -> any**
 
@@ -30,12 +31,12 @@ A function called with the return value of mapfunc.
 
 A function called at the end of all jobs.
 
-Installing 
+Installing
 ----------
 You can install `tilepie` from [PyPi](https://pypi.python.org/pypi/tilepie) ✨
 
 ```sh
-pip install tilepie 
+pip install tilepie
 ```
 
 Example
@@ -63,12 +64,12 @@ def mapper(x, y, z, data):
 def onTileDone(count):
   global total_count
   total_count += count
-  
+
 ## Define a function that runs at the end of all jobs
 def onEnd():
   global total_count
   print total_count
-  
+
 # Call tilereduce
 # This is using lebanon.mbtiles from the QA Tiles
 tilereduce(

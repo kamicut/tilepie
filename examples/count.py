@@ -6,7 +6,7 @@ import sys
 if __name__ == '__main__':
   total_count = 0
 
-  def mapper(x, y, z, data):
+  def mapper(x, y, z, data, args):
     if data is None:
             return 0
 
@@ -17,15 +17,15 @@ if __name__ == '__main__':
       count = len(tile['osm']['features'])
 
     return count
-  
+
   def onTileDone(count):
     global total_count
     total_count += count
-  
+
   def onEnd():
     global total_count
     print(total_count)
-  
+
   # Call tilereduce
   tilereduce(
     {
