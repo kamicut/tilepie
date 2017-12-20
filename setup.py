@@ -17,7 +17,7 @@ Acknowledgements & pevious work
 '''
 
 setup(name='tilepie',
-      version='0.2',
+      version='0.2.1',
       description='multiproc mbtile processing',
       long_description=long_description,
       url='https://github.com/kamicut/tilepie',
