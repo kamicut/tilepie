@@ -19,11 +19,12 @@ def tilereduce (options, mapper, callback, done):
   tm = MBTilesReader(options.get('source'))
   zoom = options.get('zoom')
   tiles = tm.tileslist(bbox=options.get('bbox'), zoomlevels=[zoom])
+  args = options.get('args')
 
   for tile in tiles:
-    try: 
+    try:
       tilecontent = uncompress(tm.tile(tile[0], tile[1], tile[2]))
-      pool.apply_async(mapper, args=(tile[1], tile[2], tile[0], tilecontent), callback = callback)
+      pool.apply_async(mapper, args=(tile[1], tile[2], tile[0], tilecontent, args), callback = callback)
     except ExtractionError:
       pass
   pool.close()
