@@ -88,7 +88,7 @@ tilereduce(
   },
   map_function=mapper,
   callback=on_tile_done,
-  error_callback=on_error
+  error_callback=on_error,
   done=on_end
 )
 ```
