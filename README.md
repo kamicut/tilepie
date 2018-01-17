@@ -7,7 +7,7 @@ Based on the map/reduce/end structure in [@mapbox/tilereduce](https://github.com
 
 Docs
 ----
-The main function is `tilereduce(options, mapfunc, callback, done)`:
+The main function is `tilereduce(options, map_function=map_function, callback=callback, error_callback=error_callback, done=done)`:
 
 **options**
 
@@ -17,7 +17,7 @@ A dictionary with the following keys:
 - zoom: the zoom level to read from
 - args: an optional dictionary which is passed to each worker
 
-**mapfunc: (x, y, z, data) -> any**
+**map_function: (x, y, z, data) -> any**
 
 A function that run on each tile asynchronously.
 x, y and z specify the tile coordinates, and data is the tile contents.
@@ -25,7 +25,11 @@ The mapfunc takes the tile data and should return a value.
 
 **callback: (any) -> void**
 
-A function called with the return value of mapfunc.
+A function called with the return value of `map_function`.
+
+**error_callback: (any) -> void**
+
+A function called with an exception instance if one occurs in the worker.
 
 **done: () -> void**
 
@@ -61,14 +65,18 @@ def mapper(x, y, z, data):
   return count
 
 ## Define a callback when each tile finishes
-def onTileDone(count):
+def on_tile_done(count):
   global total_count
   total_count += count
 
 ## Define a function that runs at the end of all jobs
-def onEnd():
+def on_end():
   global total_count
   print total_count
+
+## Log errors
+def on_error(e):
+  print(e)
 
 # Call tilereduce
 # This is using lebanon.mbtiles from the QA Tiles
@@ -78,13 +86,14 @@ tilereduce(
     'source': '~/data/lebanon.mbtiles',
     'bbox': (35.1260526873, 33.0890400254, 36.6117501157, 34.6449140488)
   },
-  mapper,
-  onTileDone,
-  onEnd
+  map_function=mapper,
+  callback=on_tile_done,
+  error_callback=on_error,
+  done=on_end
 )
 ```
 
-Acknowledgements & pevious work
+Acknowledgements & previous work
 --------------------------------
 - [mapbox/tilereduce](https://github.com/mapbox/tile-reduce)
 - [jwass/tile-reduce-py](https://github.com/jwass/tile-reduce-py/)

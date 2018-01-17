@@ -15,14 +15,16 @@ if __name__ == '__main__':
     count = 0
     if (tile['osm']['features']):
       count = len(tile['osm']['features'])
-
     return count
 
-  def onTileDone(count):
+  def on_tile_done(count):
     global total_count
     total_count += count
 
-  def onEnd():
+  def on_error(e):
+      print(e)
+
+  def on_end():
     global total_count
     print(total_count)
 
@@ -33,7 +35,8 @@ if __name__ == '__main__':
       'source': sys.argv[1],
       'bbox': (35.1260526873, 33.0890400254, 36.6117501157, 34.6449140488)
     },
-    mapper,
-    onTileDone,
-    onEnd
+    map_function=mapper,
+    callback=on_tile_done,
+    error_callback=on_error,
+    done=on_end
   )

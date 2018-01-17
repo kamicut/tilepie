@@ -13,7 +13,7 @@ def uncompress(compressed):
 
   return uncompressed
 
-def tilereduce (options, mapper, callback, done):
+def tilereduce (options, map_function, callback, done, **kwargs):
   pool = mp.Pool()
 
   tm = MBTilesReader(options.get('source'))
@@ -24,7 +24,11 @@ def tilereduce (options, mapper, callback, done):
   for tile in tiles:
     try:
       tilecontent = uncompress(tm.tile(tile[0], tile[1], tile[2]))
-      pool.apply_async(mapper, args=(tile[1], tile[2], tile[0], tilecontent, args), callback = callback)
+      pool.apply_async(
+          map_function, args=(tile[1], tile[2], tile[0], tilecontent, args),
+          callback=callback,
+          **kwargs
+          )
     except ExtractionError:
       pass
   pool.close()
